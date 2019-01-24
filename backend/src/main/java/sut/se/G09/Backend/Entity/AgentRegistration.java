@@ -18,7 +18,7 @@ public class AgentRegistration {
   @SequenceGenerator(name = "Aregist_seq", sequenceName = "Aregist_seq")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Aregist_seq")
   @Column(name = "ID", unique = true, nullable = false, length = 100)
-  private Long regId;          //เลขที่ลงทะเบียน
+  private Long iD;          //เลขที่ลงทะเบียน
  // private Long idCard;       //id_card คนที่ขอรับสิทธิ
 
   private String titleName;

@@ -36,18 +36,38 @@ public class MemberDataController
         this.memberDataRepository = memberDataRepository;
     }
 
-    @PostMapping("/Regmem/{fname}/{lname}/{age}/{PID}")
+    @PostMapping("/Regmem/{fname}/{lname}/{age}/{PID}/{username}/{password}/{povin}/{ag}/{cate}")
     //@RequestMapping(path="Reg", method=RequestMethod.POST,  consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public MemberData NewMemberData(
             @PathVariable String fname,
             @PathVariable String lname,
             @PathVariable Long age,
-            @PathVariable Long PID ,
+            @PathVariable String PID,
+            @PathVariable String username,
+            @PathVariable String password,
+            @PathVariable Long povin,
+            @PathVariable Long ag,
+            @PathVariable Long cate
             ){
+        MLData login = new MLData();
+        login.setUserName(username);
+        login.setPassword(password);
+        mlDataRepository.save(login);
+        MLData mlog = mlDataRepository.findByUserName(username);
+        Province po = provinceRepository.findByID(povin);
+        AgentRegistration agent = agentRegistrationRepository.findByID(ag);
+        Category ca = categoryRepository.findByID(cate);
+        MemberData member = new MemberData();
+        member.setFname(fname);
+        member.setLname(lname);
+        member.setAge(age);
+        member.setIDCard(PID);
+        member.setMLData(mlog);
+        member.setProvince(po);
+        member.setCategory(ca);
+        member.setAgentRegistration(agent);
 
-        MemberData Member = new MemberData();
-
-        return memberDataRepository.save(MemberData);
+        return memberDataRepository.save(member);
     }
     
   
